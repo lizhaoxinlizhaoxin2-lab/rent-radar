@@ -11,13 +11,28 @@ import ResultsTable from './components/ResultsTable';
 import AiPanel from './components/AiPanel';
 import './App.css';
 
+// 权重为 0-5 的「在意程度」挡位
 const DEFAULT_WEIGHTS: Weights = {
-  cost: 30,
-  commute: 30,
-  lighting: 15,
-  independence: 15,
-  space: 10,
+  cost: 4,
+  commute: 4,
+  lighting: 3,
+  independence: 3,
+  space: 2,
 };
+
+/** 兼容旧数据：老版本权重是 0-100，统一映射回 0-5 挡位 */
+function normalizeWeights(raw: Partial<Weights> | undefined): Weights {
+  const out: Weights = { ...DEFAULT_WEIGHTS };
+  if (raw) {
+    (Object.keys(out) as (keyof Weights)[]).forEach((k) => {
+      const v = Number(raw[k]);
+      if (!Number.isFinite(v)) return;
+      // 大于 5 视为旧的 0-100 值，按比例折算到 0-5
+      out[k] = Math.max(0, Math.min(5, Math.round(v > 5 ? v / 20 : v)));
+    });
+  }
+  return out;
+}
 
 const DEFAULT_PROFILE: UserProfile = {
   monthlyIncome: 15000,
@@ -48,7 +63,7 @@ function loadState(): PersistedState {
       const parsed = JSON.parse(raw) as PersistedState;
       // 旧数据可能缺少新字段，统一补齐，避免出现 NaN
       return {
-        weights: { ...DEFAULT_WEIGHTS, ...(parsed.weights ?? {}) },
+        weights: normalizeWeights(parsed.weights),
         profile: { ...DEFAULT_PROFILE, ...(parsed.profile ?? {}) },
         listings: (parsed.listings ?? []).map(normalizeListing),
       };

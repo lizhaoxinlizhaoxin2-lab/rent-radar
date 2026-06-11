@@ -27,25 +27,45 @@ header h1 {
 
 /* ===== 权重 ===== */
 .weight-row {
-  margin: 12px 0;
+  margin: 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f1f3;
 }
-.weight-row label {
+.weight-row:last-child {
+  border-bottom: none;
+}
+.weight-head {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 .weight-label {
-  width: 140px;
-  flex-shrink: 0;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.weight-level {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
 }
 .weight-row input[type='range'] {
-  flex: 1;
+  width: 100%;
   accent-color: var(--primary);
+  margin: 6px 0 2px;
+}
+.weight-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #aeb4bd;
+}
+.weight-ticks .active {
+  color: var(--primary);
+  font-weight: 600;
 }
 .weight-hint {
   display: block;
-  margin-left: 152px;
+  margin-top: 4px;
   font-size: 12px;
 }
 
@@ -267,10 +287,7 @@ footer a {
 }
 
 @media (max-width: 560px) {
-  .weight-label {
-    width: 96px;
-  }
-  .weight-hint {
-    margin-left: 0;
+  .weight-ticks {
+    font-size: 9px;
   }
 }

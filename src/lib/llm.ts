@@ -38,9 +38,11 @@ function buildPrompt(
   weights: Weights,
   profile: UserProfile
 ): string {
-  const weightLines = DIMENSIONS.map(
-    (d) => `- ${d.label}：权重 ${weights[d.key]}`
-  ).join('\n');
+  const levelLabels = ['不在意', '略微在意', '一般', '比较看重', '很看重', '极其看重'];
+  const weightLines = DIMENSIONS.map((d) => {
+    const lv = Math.max(0, Math.min(5, Math.round(weights[d.key] ?? 0)));
+    return `- ${d.label}：${levelLabels[lv]}`;
+  }).join('\n');
 
   const listingLines = scored
     .map((s) => {
