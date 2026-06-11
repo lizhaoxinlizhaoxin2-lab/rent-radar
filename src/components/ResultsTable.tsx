@@ -6,13 +6,35 @@ interface Props {
   results: ScoredListing[];
 }
 
+/** 根据分数返回一个颜色（用于分数条 / 数字） */
 function scoreColor(score: number): string {
-  if (score >= 75) return 'var(--good)';
-  if (score >= 50) return 'var(--text)';
-  return 'var(--warn)';
+  if (score >= 75) return '#16a34a';
+  if (score >= 50) return '#2f6fed';
+  if (score >= 25) return '#d97706';
+  return '#dc2626';
 }
 
-/** 对比结果表：按总分排序，展示各维度得分与真实开销 */
+const MEDALS = ['🥇', '🥈', '🥉'];
+
+/** 单元格内的迷你分数条 */
+function ScoreCell({ value }: { value: number }) {
+  const color = scoreColor(value);
+  return (
+    <div className="score-cell">
+      <div className="score-track">
+        <div
+          className="score-fill"
+          style={{ width: `${value}%`, background: color }}
+        />
+      </div>
+      <span className="score-num" style={{ color }}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
+/** 对比结果：冠军卡 + 雷达图 + 可视化分数表 */
 export default function ResultsTable({ results }: Props) {
   if (results.length === 0) {
     return (
@@ -34,18 +56,24 @@ export default function ResultsTable({ results }: Props) {
 
       {/* 冠军总结卡 */}
       <div className="winner-card">
-        <div className="winner-badge">🏆 推荐</div>
-        <div>
-          <strong className="winner-name">{winner.listing.name}</strong>
-          <span className="muted">
-            ，综合得分 {winner.totalScore}，真实月开销约 {winner.cost.total} 元
+        <div className="winner-medal">🏆</div>
+        <div className="winner-body">
+          <div className="winner-top">
+            <span className="winner-name">{winner.listing.name}</span>
+            <span className="winner-score" style={{ color: scoreColor(winner.totalScore) }}>
+              {winner.totalScore}
+              <small>分</small>
+            </span>
+          </div>
+          <div className="winner-sub muted">
+            真实月开销约 <strong>{winner.cost.total} 元</strong>
             {runnerUp && costGap !== 0 && (
               <>
-                ，比第二名{costGap > 0 ? '每月省' : '每月多'} {Math.abs(costGap)} 元
+                ，比第二名{costGap > 0 ? '每月省' : '每月多花'}{' '}
+                <strong>{Math.abs(costGap)} 元</strong>
               </>
             )}
-            。
-          </span>
+          </div>
         </div>
       </div>
 
@@ -68,22 +96,32 @@ export default function ResultsTable({ results }: Props) {
           <tbody>
             {results.map((r) => (
               <tr key={r.listing.id} className={r.rank === 1 ? 'winner' : ''}>
-                <td>{r.rank === 1 ? '🏆 1' : r.rank}</td>
-                <td>{r.listing.name}</td>
+                <td className="rank-cell">
+                  <span className="rank-badge">
+                    {MEDALS[r.rank - 1] ?? r.rank}
+                  </span>
+                </td>
+                <td className="name-cell">{r.listing.name}</td>
                 <td>
-                  <strong style={{ color: scoreColor(r.totalScore) }}>
+                  <span
+                    className="total-pill"
+                    style={{
+                      background: scoreColor(r.totalScore),
+                    }}
+                  >
                     {r.totalScore}
-                  </strong>
+                  </span>
                 </td>
                 {DIMENSIONS.map((d) => (
-                  <td key={d.key} className="muted">
-                    {r.dimensionScores[d.key]}
+                  <td key={d.key}>
+                    <ScoreCell value={r.dimensionScores[d.key]} />
                   </td>
                 ))}
                 <td>
-                  <strong>{r.cost.total}</strong>
+                  <strong className="cost-total">{r.cost.total}</strong>
                   <div className="cost-detail muted">
-                    租 {r.cost.rent} + 杂费 {r.cost.fees} + 交通 {r.cost.transit} + 时间 {r.cost.commuteTimeCost}
+                    租 {r.cost.rent} + 杂费 {r.cost.fees} + 交通 {r.cost.transit} + 时间{' '}
+                    {r.cost.commuteTimeCost}
                   </div>
                 </td>
               </tr>

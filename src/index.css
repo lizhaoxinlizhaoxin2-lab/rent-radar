@@ -19,7 +19,9 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: linear-gradient(180deg, #eef2fb 0%, #f5f6f8 320px);
+  background-attachment: fixed;
+  min-height: 100vh;
   line-height: 1.6;
 }
 
