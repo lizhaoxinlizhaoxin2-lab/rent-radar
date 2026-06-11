@@ -3,7 +3,10 @@ import type { Listing, Weights, UserProfile } from './types';
 import { scoreListings } from './lib/scoring';
 import WeightEditor from './components/WeightEditor';
 import ProfileEditor from './components/ProfileEditor';
-import ListingsEditor, { makeBlankListing } from './components/ListingsEditor';
+import ListingsEditor, {
+  makeBlankListing,
+  normalizeListing,
+} from './components/ListingsEditor';
 import ResultsTable from './components/ResultsTable';
 import AiPanel from './components/AiPanel';
 import './App.css';
@@ -24,8 +27,8 @@ const DEFAULT_PROFILE: UserProfile = {
 // 初始示例房源，便于第一次打开就看到效果
 function initialListings(): Listing[] {
   return [
-    { ...makeBlankListing(), name: '市中心合租', rent: 3500, type: '合租', commuteMinutes: 15, dailyTransitCost: 6, lighting: 3, area: 15 },
-    { ...makeBlankListing(), name: '近郊整租', rent: 3000, type: '整租', commuteMinutes: 50, dailyTransitCost: 14, lighting: 4, area: 45 },
+    { ...makeBlankListing(), name: '市中心合租', rent: 3500, monthlyExtraFees: 200, type: '合租', commuteMinutes: 15, dailyTransitCost: 6, lighting: 3, independence: 3, area: 15 },
+    { ...makeBlankListing(), name: '近郊整租', rent: 3000, monthlyExtraFees: 400, type: '整租', commuteMinutes: 50, dailyTransitCost: 14, lighting: 4, independence: 5, area: 45 },
   ];
 }
 
@@ -40,7 +43,11 @@ interface PersistedState {
 function loadState(): PersistedState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as PersistedState;
+    if (raw) {
+      const parsed = JSON.parse(raw) as PersistedState;
+      // 旧数据可能缺少新字段，统一补齐，避免出现 NaN
+      return { ...parsed, listings: (parsed.listings ?? []).map(normalizeListing) };
+    }
   } catch {
     /* ignore */
   }

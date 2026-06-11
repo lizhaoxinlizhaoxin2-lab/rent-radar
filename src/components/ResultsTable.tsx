@@ -83,7 +83,7 @@ export default function ResultsTable({ results }: Props) {
                 <td>
                   <strong>{r.cost.total}</strong>
                   <div className="cost-detail muted">
-                    租 {r.cost.rent} + 交通 {r.cost.transit} + 时间 {r.cost.commuteTimeCost}
+                    租 {r.cost.rent} + 杂费 {r.cost.fees} + 交通 {r.cost.transit} + 时间 {r.cost.commuteTimeCost}
                   </div>
                 </td>
               </tr>

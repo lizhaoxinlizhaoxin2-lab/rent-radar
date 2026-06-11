@@ -12,10 +12,12 @@ const FIELDS: {
 }[] = [
   { key: 'name', label: '名称', type: 'text' },
   { key: 'rent', label: '月租(元)', type: 'number' },
+  { key: 'monthlyExtraFees', label: '杂费/月(取暖网费物业)', type: 'number' },
   { key: 'type', label: '类型', type: 'select' },
   { key: 'commuteMinutes', label: '单程通勤(分)', type: 'number' },
   { key: 'dailyTransitCost', label: '每天交通费(元)', type: 'number' },
   { key: 'lighting', label: '采光(1-5)', type: 'number' },
+  { key: 'independence', label: '独立性(1-5)', type: 'number' },
   { key: 'area', label: '面积(m²)', type: 'number' },
 ];
 
@@ -24,11 +26,32 @@ export function makeBlankListing(): Listing {
     id: crypto.randomUUID(),
     name: '新房源',
     rent: 3000,
+    monthlyExtraFees: 300,
     type: '整租',
     commuteMinutes: 30,
     dailyTransitCost: 10,
     lighting: 3,
+    independence: 4,
     area: 0,
+  };
+}
+
+/** 兼容旧版本本地数据：补齐缺失字段，避免出现 NaN */
+export function normalizeListing(input: unknown): Listing {
+  const raw = (input ?? {}) as Record<string, unknown>;
+  const type: RentalType = raw.type === '合租' ? '合租' : '整租';
+  return {
+    id: typeof raw.id === 'string' ? raw.id : crypto.randomUUID(),
+    name: typeof raw.name === 'string' ? raw.name : '房源',
+    rent: Number(raw.rent) || 0,
+    monthlyExtraFees: Number(raw.monthlyExtraFees) || 0,
+    type,
+    commuteMinutes: Number(raw.commuteMinutes) || 0,
+    dailyTransitCost: Number(raw.dailyTransitCost) || 0,
+    lighting: Number(raw.lighting) || 3,
+    // 旧数据没有 independence：按类型给个合理默认（整租 5、合租 2）
+    independence: Number(raw.independence) || (type === '合租' ? 2 : 5),
+    area: Number(raw.area) || 0,
   };
 }
 

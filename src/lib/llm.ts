@@ -47,9 +47,10 @@ function buildPrompt(
       const l = s.listing;
       return [
         `【${l.name}】（当前排名第 ${s.rank}，总分 ${s.totalScore}）`,
-        `  租金 ${l.rent} 元/月，${l.type}，面积 ${l.area || '未填'} m²，采光 ${l.lighting}/5`,
+        `  租金 ${l.rent} 元/月，杂费(取暖/网费/物业等) ${l.monthlyExtraFees} 元/月，${l.type}，独立性 ${l.independence}/5，面积 ${l.area || '未填'} m²，采光 ${l.lighting}/5`,
         `  单程通勤 ${l.commuteMinutes} 分钟，每天交通费 ${l.dailyTransitCost} 元`,
-        `  真实月开销 ${s.cost.total} 元（房租 ${s.cost.rent} + 交通 ${s.cost.transit} + 通勤时间折算 ${s.cost.commuteTimeCost}）`,
+        `  月支出（实际掏的钱）${s.cost.outOfPocket} 元 = 房租 ${s.cost.rent} + 杂费 ${s.cost.fees} + 交通 ${s.cost.transit}`,
+        `  真实月开销 ${s.cost.total} 元 = 月支出 ${s.cost.outOfPocket} + 通勤时间折算 ${s.cost.commuteTimeCost}`,
       ].join('\n');
     })
     .join('\n\n');

@@ -21,14 +21,20 @@ export function hourlyWage(profile: UserProfile): number {
 /** 计算一套房源的真实月开销明细 */
 export function computeCost(listing: Listing, profile: UserProfile): CostBreakdown {
   const transit = listing.dailyTransitCost * profile.workDaysPerMonth;
+  const fees = listing.monthlyExtraFees;
+  // 月支出 = 实际掏出去的钱（房租 + 杂费 + 交通）
+  const outOfPocket = listing.rent + fees + transit;
   // 单程分钟 × 2（往返）÷ 60 = 每天通勤小时
   const dailyCommuteHours = (listing.commuteMinutes * 2) / 60;
   const commuteTimeCost =
     hourlyWage(profile) * dailyCommuteHours * profile.workDaysPerMonth;
-  const total = listing.rent + transit + commuteTimeCost;
+  // 真实月开销 = 月支出 + 通勤时间折算（汇总参考用）
+  const total = outOfPocket + commuteTimeCost;
   return {
     rent: listing.rent,
+    fees: Math.round(fees),
     transit: Math.round(transit),
+    outOfPocket: Math.round(outOfPocket),
     commuteTimeCost: Math.round(commuteTimeCost),
     total: Math.round(total),
   };
@@ -45,15 +51,16 @@ function rawValue(
 ): number {
   switch (key) {
     case 'cost':
-      // 开销越低越好 → 取负值，使「越大越好」
-      return -cost.total;
+      // 月支出（实际掏的钱）越低越好 → 取负值，使「越大越好」
+      // 注意：不含通勤时间折现，避免与「通勤时长」维度重复计权
+      return -cost.outOfPocket;
     case 'commute':
       // 通勤越短越好 → 取负值
       return -listing.commuteMinutes;
     case 'lighting':
       return listing.lighting;
     case 'independence':
-      return listing.type === '整租' ? 1 : 0;
+      return listing.independence;
     case 'space':
       return listing.area;
   }
