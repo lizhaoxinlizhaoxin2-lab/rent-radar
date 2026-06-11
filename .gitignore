@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# tsc -b 编译产物
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

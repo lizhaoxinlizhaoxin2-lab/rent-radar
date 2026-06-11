@@ -1,0 +1,189 @@
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 28px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===== 权重 ===== */
+.weight-row {
+  margin: 12px 0;
+}
+.weight-row label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.weight-label {
+  width: 140px;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.weight-row input[type='range'] {
+  flex: 1;
+  accent-color: var(--primary);
+}
+.weight-hint {
+  display: block;
+  margin-left: 152px;
+  font-size: 12px;
+}
+
+/* ===== 字段 ===== */
+.field-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+label.full {
+  margin-top: 12px;
+}
+input,
+select {
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--text);
+}
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* ===== 表格 ===== */
+.table-scroll {
+  overflow-x: auto;
+  margin: 12px 0;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+th,
+td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+th {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.listings-table input {
+  width: 88px;
+}
+.listings-table input[type='text'] {
+  width: 110px;
+}
+.results-table .winner {
+  background: #eef7f0;
+}
+.cost-detail {
+  font-size: 11px;
+}
+
+/* ===== 按钮 ===== */
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-top: 12px;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+.btn-primary:disabled {
+  background: #b9c4d6;
+  cursor: not-allowed;
+}
+.btn-secondary {
+  background: #eef2fb;
+  color: var(--primary-dark);
+  border: 1px solid #d4def5;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: underline;
+}
+.btn-ghost:hover {
+  color: var(--primary);
+}
+
+/* ===== AI 面板 ===== */
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settings {
+  background: #fafbfc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin: 12px 0;
+}
+.settings input,
+.settings select {
+  width: 100%;
+}
+.error {
+  color: #b91c1c;
+  font-size: 14px;
+}
+.analysis {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f7f9fc;
+  border-left: 3px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+footer {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 13px;
+}
