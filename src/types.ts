@@ -31,6 +31,9 @@ export type Weights = Record<DimensionKey, number>;
 export interface UserProfile {
   monthlyIncome: number;     // 月收入（元）
   workDaysPerMonth: number;  // 每月工作天数，默认 22
+  // 时间价值系数：通勤 1 小时相当于多少倍时薪。
+  // 摸鱼/通勤能休息 → 调低；极度厌恶通勤/时间宝贵 → 调高。默认 0.5（交通经济学常用值）
+  timeValueFactor: number;
 }
 
 // ===== 打分结果 =====

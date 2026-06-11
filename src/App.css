@@ -79,6 +79,26 @@ select:focus {
   border-color: var(--primary);
 }
 
+/* ===== 时间价值滑块 ===== */
+.time-value {
+  margin: 14px 0 4px;
+  padding: 12px 14px;
+  background: #fafbfc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.time-value label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-direction: row;
+}
+.time-value input[type='range'] {
+  flex: 1;
+  accent-color: var(--primary);
+  max-width: 320px;
+}
+
 /* ===== 表格 ===== */
 .table-scroll {
   overflow-x: auto;

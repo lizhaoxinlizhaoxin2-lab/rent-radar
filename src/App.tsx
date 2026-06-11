@@ -22,6 +22,7 @@ const DEFAULT_WEIGHTS: Weights = {
 const DEFAULT_PROFILE: UserProfile = {
   monthlyIncome: 15000,
   workDaysPerMonth: 22,
+  timeValueFactor: 0.5,
 };
 
 // 初始示例房源，便于第一次打开就看到效果
@@ -46,7 +47,11 @@ function loadState(): PersistedState {
     if (raw) {
       const parsed = JSON.parse(raw) as PersistedState;
       // 旧数据可能缺少新字段，统一补齐，避免出现 NaN
-      return { ...parsed, listings: (parsed.listings ?? []).map(normalizeListing) };
+      return {
+        weights: { ...DEFAULT_WEIGHTS, ...(parsed.weights ?? {}) },
+        profile: { ...DEFAULT_PROFILE, ...(parsed.profile ?? {}) },
+        listings: (parsed.listings ?? []).map(normalizeListing),
+      };
     }
   } catch {
     /* ignore */

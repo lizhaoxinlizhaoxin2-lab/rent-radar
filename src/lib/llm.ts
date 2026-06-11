@@ -59,6 +59,7 @@ function buildPrompt(
     '你是一位务实、懂行的租房顾问。请基于以下数据帮我做决策分析。',
     '',
     `我的月收入约 ${profile.monthlyIncome} 元，每月工作 ${profile.workDaysPerMonth} 天。`,
+    `通勤时间我按时薪的 ${Math.round((profile.timeValueFactor ?? 0.5) * 100)}% 来折算（反映我对通勤时间的在意程度）。`,
     '我对各维度的看重程度（权重越高越在意）：',
     weightLines,
     '',

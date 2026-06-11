@@ -26,8 +26,10 @@ export function computeCost(listing: Listing, profile: UserProfile): CostBreakdo
   const outOfPocket = listing.rent + fees + transit;
   // 单程分钟 × 2（往返）÷ 60 = 每天通勤小时
   const dailyCommuteHours = (listing.commuteMinutes * 2) / 60;
+  // 乘以时间价值系数：你认为通勤 1 小时值多少倍时薪
+  const factor = profile.timeValueFactor ?? 0.5;
   const commuteTimeCost =
-    hourlyWage(profile) * dailyCommuteHours * profile.workDaysPerMonth;
+    hourlyWage(profile) * dailyCommuteHours * profile.workDaysPerMonth * factor;
   // 真实月开销 = 月支出 + 通勤时间折算（汇总参考用）
   const total = outOfPocket + commuteTimeCost;
   return {
