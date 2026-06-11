@@ -114,6 +114,61 @@ th {
   font-size: 11px;
 }
 
+/* ===== 冠军卡 + 雷达图 ===== */
+.winner-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(90deg, #eef7f0, #f7faf8);
+  border: 1px solid #cfe9d6;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 12px 0 16px;
+}
+.winner-badge {
+  background: var(--good);
+  color: #fff;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.winner-name {
+  font-size: 16px;
+}
+.radar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 0 20px;
+}
+.radar-svg {
+  width: 320px;
+  max-width: 100%;
+  height: auto;
+}
+.radar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
 /* ===== 按钮 ===== */
 .btn-primary {
   background: var(--primary);
@@ -186,4 +241,16 @@ footer {
   text-align: center;
   margin-top: 32px;
   font-size: 13px;
+}
+footer a {
+  color: var(--primary);
+}
+
+@media (max-width: 560px) {
+  .weight-label {
+    width: 96px;
+  }
+  .weight-hint {
+    margin-left: 0;
+  }
 }

@@ -88,7 +88,14 @@ export default function App() {
       <AiPanel results={results} weights={weights} profile={profile} />
 
       <footer className="muted">
-        开源项目 · 打分用公式（稳定），AI 仅做解释。欢迎 fork 改造。
+        开源项目 · 打分用公式（稳定），AI 仅做解释。{' '}
+        <a
+          href="https://github.com/lizhaoxinlizhaoxin2-lab/rent-radar"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub 源码 ↗
+        </a>
       </footer>
     </div>
   );

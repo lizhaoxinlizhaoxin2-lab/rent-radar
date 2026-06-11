@@ -1,5 +1,6 @@
 import type { ScoredListing } from '../types';
 import { DIMENSIONS } from '../types';
+import RadarChart from './RadarChart';
 
 interface Props {
   results: ScoredListing[];
@@ -22,10 +23,35 @@ export default function ResultsTable({ results }: Props) {
     );
   }
 
+  const winner = results[0];
+  const runnerUp = results[1];
+  const costGap = runnerUp ? runnerUp.cost.total - winner.cost.total : 0;
+
   return (
     <div className="card">
       <h2>④ 对比结果</h2>
       <p className="muted">总分越高越契合你的偏好。真实开销已含通勤时间折算。</p>
+
+      {/* 冠军总结卡 */}
+      <div className="winner-card">
+        <div className="winner-badge">🏆 推荐</div>
+        <div>
+          <strong className="winner-name">{winner.listing.name}</strong>
+          <span className="muted">
+            ，综合得分 {winner.totalScore}，真实月开销约 {winner.cost.total} 元
+            {runnerUp && costGap !== 0 && (
+              <>
+                ，比第二名{costGap > 0 ? '每月省' : '每月多'} {Math.abs(costGap)} 元
+              </>
+            )}
+            。
+          </span>
+        </div>
+      </div>
+
+      {/* 雷达图 */}
+      {results.length >= 2 && <RadarChart results={results} />}
+
       <div className="table-scroll">
         <table className="results-table">
           <thead>
