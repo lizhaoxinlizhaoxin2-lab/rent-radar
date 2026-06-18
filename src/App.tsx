@@ -9,6 +9,7 @@ import ListingsEditor, {
 } from './components/ListingsEditor';
 import ResultsTable from './components/ResultsTable';
 import AiPanel from './components/AiPanel';
+import ZhihuPanel from './components/ZhihuPanel';
 import './App.css';
 
 // 权重为 0-5 的「在意程度」挡位
@@ -113,6 +114,7 @@ export default function App() {
       <ListingsEditor listings={listings} onChange={setListings} />
       <ResultsTable results={results} />
       <AiPanel results={results} weights={weights} profile={profile} />
+      <ZhihuPanel />
 
       <footer className="muted">
         开源项目 · 打分用公式（稳定），AI 仅做解释。{' '}

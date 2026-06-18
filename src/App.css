@@ -375,6 +375,40 @@ th {
   line-height: 1.7;
 }
 
+/* ===== 知乎参考 ===== */
+.zhihu-input {
+  width: 100%;
+  padding: 9px 12px;
+  margin: 8px 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.zhihu-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.zhihu-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  background: #eef4ff;
+  color: #0a66c2;
+  border: 1px solid #d6e4ff;
+  border-radius: 999px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.zhihu-chip:hover {
+  background: #0a66c2;
+  color: #fff;
+  border-color: #0a66c2;
+}
+.zhihu-tip {
+  margin-top: 12px;
+}
+
 footer {
   text-align: center;
   margin-top: 32px;
