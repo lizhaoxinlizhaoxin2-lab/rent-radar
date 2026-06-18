@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "租房对比神器：按你的偏好为每套房源打分、算清真实开销，帮你理性做决定",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
