@@ -19,10 +19,23 @@
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #eef2fb 0%, #f5f6f8 320px);
-  background-attachment: fixed;
   min-height: 100vh;
   line-height: 1.6;
+  background: #eef1f8;
+}
+
+/* 全页柔和光晕装饰背景（矢量、不压字、可换色） */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(640px circle at 10% 6%, rgba(106, 76, 240, 0.18), transparent 60%),
+    radial-gradient(720px circle at 92% 0%, rgba(47, 111, 237, 0.16), transparent 55%),
+    radial-gradient(620px circle at 84% 88%, rgba(6, 182, 212, 0.13), transparent 55%),
+    radial-gradient(520px circle at 4% 92%, rgba(236, 72, 153, 0.10), transparent 55%),
+    linear-gradient(180deg, #eef2fb, #f4f6fb 70%);
 }
 
 button {

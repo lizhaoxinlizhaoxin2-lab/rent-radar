@@ -101,12 +101,15 @@ export default function App() {
 
   return (
     <div className="app">
-      <header>
-        <h1>🏠 租房对比神器</h1>
-        <p className="muted">
-          按你的偏好为每套房打分、算清「真实开销」（含通勤时间折现），帮你理性做选择。
-          所有数据只存在你的浏览器本地。
-        </p>
+      <header className="hero">
+        <div className="hero-inner">
+          <div className="hero-badge">🏠</div>
+          <h1>租房对比神器</h1>
+          <p className="hero-sub">把通勤时间折算成钱，帮你算清哪套房真的更划算</p>
+          <p className="hero-tip">
+            按偏好打分排序 · 真实开销含通勤时间折现 · 数据只存本地
+          </p>
+        </div>
       </header>
 
       <WeightEditor weights={weights} onChange={setWeights} />

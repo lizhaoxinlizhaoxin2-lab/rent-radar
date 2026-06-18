@@ -4,36 +4,124 @@
   padding: 28px 16px 64px;
 }
 
-header {
+/* ===== Hero 头图 ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 44px 24px;
   margin-bottom: 22px;
   text-align: center;
+  background: linear-gradient(135deg, #2f6fed 0%, #6a4cf0 55%, #8b5cf6 100%);
+  box-shadow: 0 14px 36px rgba(79, 70, 229, 0.3);
 }
-
-header h1 {
-  font-size: 32px;
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.4;
+}
+.hero::before {
+  width: 240px;
+  height: 240px;
+  background: #7be0ff;
+  top: -90px;
+  right: -50px;
+}
+.hero::after {
+  width: 200px;
+  height: 200px;
+  background: #c4b5fd;
+  bottom: -80px;
+  left: -40px;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 34px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+}
+.hero h1 {
+  font-size: 34px;
   letter-spacing: -0.5px;
-  background: linear-gradient(90deg, #2f6fed, #6a4cf0);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #fff;
+  margin-bottom: 10px;
 }
-
-header .muted {
-  max-width: 600px;
-  margin: 0 auto;
+.hero-sub {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+.hero-tip {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  margin: 8px 0 0;
 }
 
 .card {
+  position: relative;
+  overflow: hidden;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 22px;
   margin-bottom: 18px;
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.04);
+  transition: box-shadow 0.2s ease;
 }
-
+.card:hover {
+  box-shadow: 0 2px 6px rgba(16, 24, 40, 0.06), 0 14px 36px rgba(16, 24, 40, 0.08);
+}
+/* 每张卡片顶部一条彩色渐变条，区分各步骤 */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent, #2f6fed), var(--accent2, #6a4cf0));
+}
 .card h2 {
   font-size: 18px;
+}
+/* 分区主题色 */
+.app .card:nth-of-type(1) {
+  --accent: #2f6fed;
+  --accent2: #6a4cf0;
+}
+.app .card:nth-of-type(2) {
+  --accent: #0ea5e9;
+  --accent2: #06b6d4;
+}
+.app .card:nth-of-type(3) {
+  --accent: #8b5cf6;
+  --accent2: #a855f7;
+}
+.app .card:nth-of-type(4) {
+  --accent: #16a34a;
+  --accent2: #22c55e;
+}
+.app .card:nth-of-type(5) {
+  --accent: #f59e0b;
+  --accent2: #ec4899;
+}
+.app .card:nth-of-type(6) {
+  --accent: #0a66c2;
+  --accent2: #2f6fed;
 }
 
 .muted {
